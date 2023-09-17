@@ -14,6 +14,13 @@
 
     <!-- Navigation Drawer -->
     <VNavigationDrawer class="bg-primary" v-model="drawer">
+      <VRow class="align-center">
+        <VCol cols="12" class="mt-5 text-center">
+          <VAvatar size="100" class="bg-grey-lighten-2" image="/avatar-1.png" />
+          <div class="text-subtitle-1 text-white mt-1">Khaled Mostafa</div>
+          <!-- <div class="text-caption text-white">Frontend Developer</div> -->
+        </VCol>
+      </VRow>
       <VList class="text-white">
         <VListItem
           v-for="link in links"
