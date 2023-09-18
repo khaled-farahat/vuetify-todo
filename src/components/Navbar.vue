@@ -6,9 +6,29 @@
         <span class="font-weight-light">Todo</span>
         <span>Vuetify</span>
       </VAppBarTitle>
+
+      <!-- drop down menu -->
+      <VBtn flat color="grey" prepend-icon="mdi-chevron-down">
+        Menu
+        <VMenu activator="parent">
+          <VList>
+            <VListItem
+              v-for="(link, index) in links"
+              :key="index"
+              :value="index"
+              router
+              :to="link.to"
+              exact
+            >
+              <VListItemTitle>{{ link.title }}</VListItemTitle>
+            </VListItem>
+          </VList>
+        </VMenu>
+      </VBtn>
+
+      <!-- sign out button -->
       <VBtn flat color="grey" append-icon="mdi-logout">
         <span> Sign Out </span>
-        <!-- <VIcon>mdi-logout</VIcon> -->
       </VBtn>
     </VAppBar>
 
@@ -18,7 +38,9 @@
         <VCol cols="12" class="mt-5 text-center">
           <VAvatar size="100" class="bg-grey-lighten-2" image="/avatar-1.png" />
           <div class="text-subtitle-1 text-white mt-1">Khaled Mostafa</div>
-          <!-- <div class="text-caption text-white">Frontend Developer</div> -->
+
+          <!-- popup -->
+          <Popup @project-added="snackbar = true" />
         </VCol>
       </VRow>
       <VList class="text-white">
@@ -36,13 +58,30 @@
         </VListItem>
       </VList>
     </VNavigationDrawer>
+
+    <!-- snackbar -->
+    <VSnackbar
+      v-model="snackbar"
+      :timeout="2000"
+      color="#3cd1c2"
+      location="top center"
+    >
+      <span class="text-white">Your Project is Added</span>
+      <template v-slot:actions>
+        <v-btn color="white" variant="text" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </VSnackbar>
   </nav>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import Popup from "./Popup.vue";
 
 const drawer = ref(false);
+const snackbar = ref(false);
 
 const links = [
   {

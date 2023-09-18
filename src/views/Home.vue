@@ -35,6 +35,11 @@
         </VTooltip>
       </VBtn>
     </VRow>
+    <VProgressCircular
+      indeterminate
+      class="mx-auto mt-15 d-flex"
+      v-if="projects.length <= 0"
+    />
     <VCard flat v-for="project in projects" :key="project.title">
       <VRow no-gutters :class="`pa-3 project ${project.status}`">
         <VCol cols="12" md="6">
@@ -66,41 +71,25 @@
 
 <script setup>
 import { ref } from "vue";
+import { collection, onSnapshot } from "firebase/firestore";
+import db from "@/firebase";
 
-const projects = ref([
-  {
-    title: "Design a new website",
-    person: "John Doe",
-    due: "1st jan 2019",
-    status: "ongoing",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti molestiae eaque, optio quaerat tempora voluptatum earum autem accusamus inventore dolores placeat! Cumque ad tempora tempore voluptatum repudiandae nostrum! Repudiandae, quam?",
-  },
-  {
-    title: "Code up the homepage",
-    person: "Chun Li",
-    due: "10th jan 2019",
-    status: "complete",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti molestiae eaque, optio quaerat tempora voluptatum earum autem accusamus inventore dolores placeat! Cumque ad tempora tempore voluptatum repudiandae nostrum! Repudiandae, quam?",
-  },
-  {
-    title: "Design a new logo",
-    person: "John Doe",
-    due: "1st feb 2019",
-    status: "ongoing",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti molestiae eaque, optio quaerat tempora voluptatum earum autem accusamus inventore dolores placeat! Cumque ad tempora tempore voluptatum repudiandae nostrum! Repudiandae, quam?",
-  },
-  {
-    title: "Create a new landing page",
-    person: "Noop Li",
-    due: "1st feb 2019",
-    status: "overdue",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti molestiae eaque, optio quaerat tempora voluptatum earum autem accusamus inventore dolores placeat! Cumque ad tempora tempore voluptatum repudiandae nostrum! Repudiandae, quam?",
-  },
-]);
+const projects = ref([]);
+
+onSnapshot(collection(db, "projects"), (snapshot) => {
+  projects.value = [];
+  snapshot.forEach((doc) => {
+    projects.value.push(doc.data());
+  });
+});
+
+// onMounted(async () => {
+//   const querySnap = await getDocs(query(collection(db, "projects")));
+//   // projects.value = querySnap.docs
+//   querySnap.forEach((doc) => {
+//     projects.value.push(doc.data());
+//   });
+// });
 
 const sortBy = (prop) => {
   projects.value.sort((a, b) => (a[prop] < b[prop] ? -1 : 1));
