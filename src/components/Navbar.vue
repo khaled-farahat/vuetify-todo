@@ -3,8 +3,8 @@
     <VAppBar flat class="bg-grey-lighten-4 text-grey">
       <VAppBarNavIcon @click.stop="drawer = !drawer" />
       <VAppBarTitle class="text-uppercase text-grey">
+        <VIcon>mdi-vuetify</VIcon>
         <span class="font-weight-light">Todo</span>
-        <span>Vuetify</span>
       </VAppBarTitle>
 
       <!-- drop down menu -->
