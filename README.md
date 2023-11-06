@@ -34,7 +34,7 @@ With Vuetify Todo, users can easily create new projects, assign team members to 
 
 ## 🚀 Live Demo
 
-[vuetify-todo](https://world-wise-ts.netlify.app/)
+[vuetify-todo](https://vuetify-todo-kh.netlify.app/)
 
 ## 📸 Screenshots
 
