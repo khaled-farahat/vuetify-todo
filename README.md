@@ -98,4 +98,4 @@ To set up the Vuetify Todo project locally, follow the instructions below.
 
 ## 📄License
 
-The WorldWise project is open-source and is licensed under the [MIT License](LICENSE) .
+The vuetify-todo project is open-source and is licensed under the [MIT License](LICENSE) .
